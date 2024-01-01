@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Center Tile</title>
+</head>
+
+<script>
+var clicks = 0;
+
+function initsetup(){
+for(t=1;t<4;t++)
+{
+  per_row=Math.floor(Math.random() * 3)+1;
+  for(i=0;i<=per_row;i++)
+  {
+  abc=Math.floor(Math.random() * 3)+1;
+  switch(abc){
+    case 1:
+    //a
+    document.getElementById("a"+t).style.visibility = "hidden" ;
+    break;
+    case 2:
+    //b
+    document.getElementById("b"+t).style.visibility = "hidden" ;
+    break;
+    case 3:
+    //c
+    document.getElementById("c"+t).style.visibility = "hidden" ;
+    break;
+  }
+  }   
+
+}
+}
+
+function button_clicked(avalue){
+    alist = [""];
+    switch(avalue){
+        case 1:
+            alist = ["a1","b1","c1"]
+            break;
+        case 2:
+            alist = ["a1","c1","b2","a3","c3"];
+            break;
+        case 3:
+            alist = ["a1","b1","c1", "a2", "a3"];
+            break;
+        case 4:
+            alist = ["a3","b3","c3","c2","c1"];
+            break;
+        case 5:
+            alist = ["a3","b3", "c3"];
+            break;
+        case 6:
+            alist = ["a2","b1","b2","b3","c2"];
+            break;
+        case 7:
+            alist = ["a2","b1","b3","c2"];
+            break;
+        case 8:
+            alist = ["a2","a3","b2","b3"];
+            break;
+    }
+    clicks +=1;
+    document.getElementById("clicks").innerHTML = clicks;
+
+    toggle(alist);
+    checkwin();
+    }
+
+function toggle(listofboxes)
+{
+    //alert(listofboxes);
+    for(i=0;i<listofboxes.length;i++)
+    {
+        val = document.getElementById(listofboxes[i]).style.visibility
+        if(val == "visible" || val == "")
+        document.getElementById(listofboxes[i]).style.visibility = "hidden" ;
+        else
+        document.getElementById(listofboxes[i]).style.visibility = "visible";
+    }
+}
+function checkwin()
+{
+  let listboxes2 = ["a1","b1","c1","a2","c2","a3","b3","c3"]
+  let alen = listboxes2.length;
+  let isvisible=false;
+  for(let i=0;i<alen;i++)
+    {
+        let val2 = document.getElementById(listboxes2[i]).style.visibility 
+        
+        if(val2 == "visible" || val2 == "") 
+        isvisible=true;
+    } 
+    
+    val1 = document.getElementById("b2").style.visibility 
+    
+    if( (val1 == "visible" || val1 == "") && isvisible ==false )
+    {
+        var x = document.getElementById("uwin");
+        if (x.style.display == "") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+}
+</script>
+<body onload = "initsetup()">
+    <div class="container">
+        <div class="main">
+            <div class="tile" id="a1"></div>
+            <div class="tile" id="b1"></div>
+            <div class="tile" id="c1"></div>
+            
+            <div class="tile" id="a2"></div>
+            <div class="tile" id="b2"></div>
+            <div class="tile" id="c2"></div>
+
+            <div class="tile" id="a3"></div>
+            <div class="tile" id="b3"></div>
+            <div class="tile" id="c3"></div>
+        </div>
+        <div class="bottom">
+            <button class="one" onclick = "button_clicked(1)">1</button>
+            <button class="two" onclick = "button_clicked(2)">2</button>
+            <button class="three" onclick = "button_clicked(3)">3</button>
+            <button class="four" onclick = "button_clicked(4)">4</button>
+            <button class="five" onclick = "button_clicked(5)">5</button>
+            <button class="six" onclick = "button_clicked(6)">6</button>
+            <button class="seven" onclick = "button_clicked(7)">7</button>
+            <button class="eight" onclick = "button_clicked(8)">8</button>
+        </div>
+        <div class="legend">
+            <p>        </p>
+            <img src="images/l1.png" alt="1">
+            <img src="images/l2.png" alt="2">
+            <img src="images/l3.png" alt="3">
+            <img src="images/l4.png" alt="4">
+            <img src="images/l5.png" alt="5">
+            <img src="images/l6.png" alt="6">
+            <img src="images/l7.png" alt="7">
+            <img src="images/l8.png" alt="8">
+        </div>
+        <div>
+            <p>Tries: <a id="clicks">0</a></p>
+        </div>
+        <div id="uwin">
+            You Won!!!!!!!
+        </div>
+    </div>
+</body>
+</html>
